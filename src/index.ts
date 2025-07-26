@@ -2,14 +2,18 @@ import { Hono } from 'hono'
 import api from './routes/index'
 import db from './db/client'
 import { products } from './db/schema'
+import { eq } from 'drizzle-orm'
+import { logger } from 'hono/logger'
+import { customLogger } from './middleware/inboundLogger'
 
 
 const app = new Hono()
 console.log('GOOGLE_APPLICATION_CREDENTIALS:', process.env.GOOGLE_APPLICATION_CREDENTIALS);
-app.route('/api', api)  // All routes are now under /api
+
+app.use('*', customLogger) // logger first
+app.route('/api', api)     // routes second
 
 const port = Number(process.env.PORT) || 3000
-
 
 const startServer = async () => {
   try {
