@@ -21,3 +21,5 @@ lerna-debug.log*
  dist
  db-data
  dist
+
+speech-credentials.json

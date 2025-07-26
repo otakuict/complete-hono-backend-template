@@ -5,7 +5,7 @@ import { products } from './db/schema'
 
 
 const app = new Hono()
-
+console.log('GOOGLE_APPLICATION_CREDENTIALS:', process.env.GOOGLE_APPLICATION_CREDENTIALS);
 app.route('/api', api)  // All routes are now under /api
 
 const port = Number(process.env.PORT) || 3000
