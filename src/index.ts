@@ -2,14 +2,15 @@ import { Hono } from 'hono'
 import api from './routes/index'
 import db from './db/client'
 import { products } from './db/schema'
-import { eq } from 'drizzle-orm'
-import { logger } from 'hono/logger'
+import { cors } from 'hono/cors'
 import { customLogger } from './middleware/inboundLogger'
 
 
 const app = new Hono()
-console.log('GOOGLE_APPLICATION_CREDENTIALS:', process.env.GOOGLE_APPLICATION_CREDENTIALS);
+//todo add cors for api routes
 
+
+app.use('/api/*', cors({ origin: '*' })) // cors first
 app.use('*', customLogger) // logger first
 app.route('/api', api)     // routes second
 
